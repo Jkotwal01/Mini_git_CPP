@@ -1,0 +1,14 @@
+{
+  "timestamp": "20251022_015630",
+  "reason": "safety_check",
+  "files": [
+    "include/",
+    "src/",
+    "main.cpp",
+    "README.md",
+    "build.sh",
+    "compile.bat",
+    "makefile"
+  ],
+  "backup_path": "C:\\Users\\hp\\Desktop\\Jay\\backups\\backup_20251022_015630_safety_check"
+}

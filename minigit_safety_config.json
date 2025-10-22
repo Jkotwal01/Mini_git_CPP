@@ -1,0 +1,49 @@
+{
+  "safety_settings": {
+    "auto_backup": true,
+    "backup_before_risky_operations": true,
+    "file_integrity_checks": true,
+    "recovery_mode": true,
+    "max_backups": 10,
+    "backup_interval_hours": 24
+  },
+  "risky_operations": [
+    "checkout",
+    "merge", 
+    "reset",
+    "clean"
+  ],
+  "critical_files": [
+    "include/",
+    "src/",
+    "main.cpp",
+    "README.md",
+    "build.sh",
+    "compile.bat",
+    "makefile"
+  ],
+  "protected_patterns": [
+    "*.hpp",
+    "*.cpp", 
+    "*.h",
+    "*.md",
+    "*.sh",
+    "*.bat",
+    "*.json"
+  ],
+  "safety_checks": {
+    "check_file_sizes": true,
+    "check_file_permissions": true,
+    "validate_file_content": true,
+    "prevent_empty_files": true
+  },
+  "recovery_settings": {
+    "auto_recovery": false,
+    "recovery_sources": [
+      "backups",
+      "src_directory",
+      "project_files"
+    ],
+    "emergency_backup": true
+  }
+}

@@ -1,0 +1,114 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include "include/repo.hpp"
+#include "include/logger.hpp"
+
+void printUsage()
+{
+    std::cout << "MiniGit - A simple version control system\n\n";
+    std::cout << "Usage: mini_git <command> [options]\n\n";
+    std::cout << "Commands:\n";
+    std::cout << "  init                        Initialize a new repository\n";
+    std::cout << "  add <file>                  Stage a file for commit\n";
+    std::cout << "  commit -m \"message\"        Commit staged changes\n";
+    std::cout << "  log                         Show commit history\n";
+    std::cout << "  checkout <commit|branch>    Checkout a commit or branch\n";
+    std::cout << "  branch <name>               Create a new branch\n";
+    std::cout << "  branch                      List all branches\n";
+    std::cout << "  merge <branch>              Merge a branch into current branch\n";
+    std::cout << "  status                      Show repository status\n";
+    std::cout << "  help                        Show this help message\n";
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc < 2)
+    {
+        printUsage();
+        return 1;
+    }
+
+    std::string command = argv[1];
+    Repository repo;
+
+    try
+    {
+        if (command == "init")
+        {
+            repo.init();
+        }
+        else if (command == "add")
+        {
+            if (argc < 3)
+            {
+                Logger::logError("Please specify a file to add");
+                return 1;
+            }
+            repo.add(argv[2]);
+        }
+        else if (command == "commit")
+        {
+            if (argc < 4 || std::string(argv[2]) != "-m")
+            {
+                Logger::logError("Usage: commit -m \"message\"");
+                return 1;
+            }
+            repo.commit(argv[3]);
+        }
+        else if (command == "log")
+        {
+            repo.log();
+        }
+        else if (command == "checkout")
+        {
+            if (argc < 3)
+            {
+                Logger::logError("Please specify a commit or branch to checkout");
+                return 1;
+            }
+            repo.checkout(argv[2]);
+        }
+        else if (command == "branch")
+        {
+            if (argc == 2)
+            {
+                repo.listBranches();
+            }
+            else
+            {
+                repo.createBranch(argv[2]);
+            }
+        }
+        else if (command == "merge")
+        {
+            if (argc < 3)
+            {
+                Logger::logError("Please specify a branch to merge");
+                return 1;
+            }
+            repo.merge(argv[2]);
+        }
+        else if (command == "status")
+        {
+            std::cout << repo.getStatus() << std::endl;
+        }
+        else if (command == "help")
+        {
+            printUsage();
+        }
+        else
+        {
+            Logger::logError("Unknown command: " + command);
+            printUsage();
+            return 1;
+        }
+    }
+    catch (const std::exception &e)
+    {
+        Logger::logError("Error: " + std::string(e.what()));
+        return 1;
+    }
+
+    return 0;
+}
