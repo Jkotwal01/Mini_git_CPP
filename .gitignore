@@ -1,0 +1,9 @@
+# Compilation outputs
+*.exe
+mygit.exe
+
+# Custom version control directory
+.mygit/
+
+# IDE files
+.vscode/
